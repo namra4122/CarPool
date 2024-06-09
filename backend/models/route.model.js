@@ -16,6 +16,9 @@ const routeSchema = new Schema(
             trim: true,
             index: true,
         },
+        serviceAvability: {
+            type: Boolean
+        }
     },
     {
         timestamps: true

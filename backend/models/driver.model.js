@@ -28,7 +28,13 @@ const driverSchema = new Schema(
         route_id:{
             type: Schema.Types.ObjectId,
             ref: "routeData"
-        }
+        },
+        available:{
+            type: Boolean
+        },
+        verified:{
+            type: Boolean
+        },
     },
     {
         timestamps: true

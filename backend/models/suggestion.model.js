@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const suggestionSchema = new Schema(
     {
-        name:{
+        title:{
             type: String,
             require: true,
             lowercase: true,
