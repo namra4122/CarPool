@@ -3,18 +3,13 @@ import express from 'express';
 const router = express.Router();
 
 import { 
-    
-} from "";
+    driverRegister,
+    getAllDriver,
+    getDriver
+} from "../controller/driver.control.js";
 
-router.route('/register').post();
-router.route('/login').post();
-
-//securedRoutes
-router.route('/logout').post();
-router.route('/refreshToken').post();
-router.route('/changePassword').post();
-router.route('/getUser').get();
-router.route('/getStudent').get();
-router.route('/getFaculty').get();
+router.route('/driverRegister').post(driverRegister);
+router.route('/getAllDriver').get(getAllDriver);
+router.route('/getDriver').get(getDriver);
 
 export default router;

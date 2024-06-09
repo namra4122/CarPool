@@ -67,3 +67,10 @@ const getAvailRoute = async (req, res) => {
         });
     }
 }
+
+export {
+    routeRegister,
+    getAllRoute,
+    getAvailRoute
+    
+}

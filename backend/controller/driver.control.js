@@ -37,7 +37,7 @@ const driverRegister = async (req, res) => {
     try{
         await Driver.create({
             name: name,
-            contact: `+91 ${contact}`,
+            contact: `+91${contact}`,
             vehicle: vehicle,
         })
     }catch(error){
@@ -69,7 +69,6 @@ const getAllDriver = async (req, res) => {
 }
 
 const getDriver = async (req, res) => {
-    
     if(!getDriverValidation.safeParse(req.query.driverName).success){
         res.status(411).json({
             error: "Invalid User Input"
@@ -94,4 +93,10 @@ const getDriver = async (req, res) => {
             error: error
         });
     }
+}
+
+export {
+    driverRegister,
+    getAllDriver,
+    getDriver
 }

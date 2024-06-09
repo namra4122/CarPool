@@ -4,18 +4,12 @@ import { Employee } from '../models/employee.model.js'
 const createEmployeeValidation = zod.object({
     name: zod.string().min(1), //kuch toh name hoga
     username: zod.string().min(1), //kuch toh name hoga
-    contact: zod.string().min(10), //+91 1234567890
+    address: zod.string().min(10),
 })
 
 const getEmployeeValidation = zod.string().min(1);
 
 const employeeRegister = async (req, res) => {
-    //zod validation
-    //get details
-    //account already?
-    //create user
-    //check user created
-    //return res
 
     if(!createEmployeeValidation.safeParse(req.body).success){
         res.status(411).json({
@@ -23,7 +17,7 @@ const employeeRegister = async (req, res) => {
         })
         return;
     }
-    const { name, username, contact } = req.body;
+    const { name, username, address } = req.body;
 
     const alrData = await Employee.findOne({username: username});
 
@@ -38,7 +32,7 @@ const employeeRegister = async (req, res) => {
         await Employee.create({
             name: name,
             username: username,
-            contact: `+91 ${contact}`
+            address: address
         })
     }catch(error){
         res.status(500).json({
@@ -70,14 +64,14 @@ const getAllEmployee = async (req, res) => {
 
 const getEmployee = async (req, res) => {
     
-    if(!getEmployeeValidation.safeParse(req.query.empUsername).success){
+    if(!getEmployeeValidation.safeParse(req.query.username).success){
         res.status(411).json({
             error: "Invalid User Input"
         })
         return;
     }
 
-    const empUsername = req.query.empUsername;
+    const empUsername = req.query.username;
     
     try{
         const empData = await Employee.find({
@@ -94,4 +88,10 @@ const getEmployee = async (req, res) => {
             error: error
         });
     }
+}
+
+export {
+    employeeRegister,
+    getAllEmployee,
+    getEmployee
 }

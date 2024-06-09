@@ -3,18 +3,13 @@ import express from 'express';
 const router = express.Router();
 
 import { 
-    
-} from "";
+    routeRegister,
+    getAllRoute,
+    getAvailRoute
+} from "../controller/route.control.js";
 
-router.route('/register').post();
-router.route('/login').post();
-
-//securedRoutes
-router.route('/logout').post();
-router.route('/refreshToken').post();
-router.route('/changePassword').post();
-router.route('/getUser').get();
-router.route('/getStudent').get();
-router.route('/getFaculty').get();
+router.route('/routeRegister').post(routeRegister);
+router.route('/getAllRoute').get(getAllRoute);
+router.route('/getAvailRoute').get(getAvailRoute);
 
 export default router;

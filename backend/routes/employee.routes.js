@@ -3,18 +3,13 @@ import express from 'express';
 const router = express.Router();
 
 import { 
-    
-} from "";
+    employeeRegister,
+    getAllEmployee,
+    getEmployee
+} from "../controller/employee.control.js";
 
-router.route('/register').post();
-router.route('/login').post();
-
-//securedRoutes
-router.route('/logout').post();
-router.route('/refreshToken').post();
-router.route('/changePassword').post();
-router.route('/getUser').get();
-router.route('/getStudent').get();
-router.route('/getFaculty').get();
+router.route('/employeeRegister').post(employeeRegister);
+router.route('/getAllEmployee').get(getAllEmployee,);
+router.route('/getEmployee').get(getEmployee);
 
 export default router;
