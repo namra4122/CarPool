@@ -9,13 +9,12 @@ const RouteCreationPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const routeData = {destinationPoint,startingPoint}
     try {
-      const response = await axios.post('http://localhost:5000/create-route', {
-        startingPoint,
-        destinationPoint,
-      });
-      setResult(response.data);
+      const response = await axios.post('http://localhost:3000/api/route/routeRegister', routeData);
+      
+      setResult(response)
+      console.log(response.data);
       // Clear the form
       setStartingPoint('');
       setDestinationPoint('');
@@ -48,13 +47,13 @@ const RouteCreationPage = () => {
             required
           />
         </div>
+        <div className='wrapper'>
             <button type="submit" className="form-group">Create Route</button>
+        </div>
       </form>
       {result && (
         <div className="result">
           <p>Route created successfully!</p>
-          <p>Starting Point: {result.startingPoint}</p>
-          <p>Destination Point: {result.destinationPoint}</p>
         </div>
       )}
     </div>

@@ -2,12 +2,12 @@ import zod from 'zod'
 import { Route } from '../models/route.model.js'
 
 const createRouteValidation = zod.object({
-    destination: zod.string().min(1), //kuch toh name hoga
+    destinationPoint: zod.string().min(1), //kuch toh name hoga
     startingPoint: zod.string().min(1), //kuch toh name hoga
 })
 
 const routeRegister = async (req, res) => {
-
+    console.log(req.body);
     if(!createRouteValidation.safeParse(req.body).success){
         res.status(411).json({
             error: "Invalid User Input"

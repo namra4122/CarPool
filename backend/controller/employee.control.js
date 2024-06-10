@@ -4,6 +4,7 @@ import { Employee } from '../models/employee.model.js'
 const createEmployeeValidation = zod.object({
     name: zod.string().min(1), //kuch toh name hoga
     username: zod.string().min(1), //kuch toh name hoga
+    contact: zod.string().min(10),
     address: zod.string().min(10),
 })
 
@@ -17,7 +18,7 @@ const employeeRegister = async (req, res) => {
         })
         return;
     }
-    const { name, username, address } = req.body;
+    const { name, username, contact ,address } = req.body;
 
     const alrData = await Employee.findOne({username: username});
 
@@ -32,6 +33,7 @@ const employeeRegister = async (req, res) => {
         await Employee.create({
             name: name,
             username: username,
+            contact: contact,
             address: address
         })
     }catch(error){

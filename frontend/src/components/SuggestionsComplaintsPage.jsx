@@ -2,54 +2,82 @@ import React, { useState } from 'react';
 import './componentCss/suggestionsComplaintsPage.css';
 
 const SuggestionsComplaintsPage = () => {
-  const [name, setName] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [message, setMessage] = useState('');
+  const [title, setTitle] = useState('');
+  const [username, setUsername] = useState('');
+  const [issue, setIssue] = useState('');
+  const [error, setError] = useState(''); // New state for error message
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically handle the form submission, e.g., send the data to the backend server
-    console.log('Employee Feedback:', { name, contactNumber, message });
+    const userIssue = {title,username,issue};
+    try {
+      const response = await fetch('http://localhost:3000/api/suggestion/suggestionCreation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userIssue)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Employee Issue:', result);
+        setError('');
+      } else{
+        const result = await response.json();
+        if (result.error) {
+          setError(result.error); // Set error message from server response
+          } else {
+            console.error('Issue Registration failed: ', response.statusText);
+            setError('Issue Registration failed. Please try again.');
+          }
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    console.log('Employee Feedback:', { title, username, issue });
     // Clear the form
-    setName('');
-    setContactNumber('');
-    setMessage('');
+    setTitle('');
+    setUsername('');
+    setIssue('');
   };
 
   return (
     <div className="suggestions-complaints-page">
       <h2>Submit Your Suggestions or Complaints</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
+      <div className="form-group">
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="contactNumber">Contact Number:</label>
+          <label htmlFor="title">Title:</label>
           <input
             type="text"
-            id="contactNumber"
-            value={contactNumber}
-            onChange={(e) => setContactNumber(e.target.value)}
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="message">Suggestion/Complaint:</label>
+          <label htmlFor="issue">Suggestion/Complaint:</label>
           <textarea
-            id="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            id="issue"
+            value={issue}
+            onChange={(e) => setIssue(e.target.value)}
             required
           ></textarea>
         </div>
-        <button type="submit">Submit</button>
+        <div className='wrapper'>
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );

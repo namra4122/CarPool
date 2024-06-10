@@ -29,11 +29,11 @@ const HomePage = () => {
     <div className="home-page">
       <h1>&#128661;</h1>
       <h2>Welcome to the Carpooling System</h2>
-      <button onClick={navigateToRegister}>Register</button>
-      <button onClick={navigateToSuggestionsComplaints}>Submit Suggestions/Complaints</button>
-      <button onClick={adminPanel}>Admin Panel</button>
-      <button onClick={vehicleAuthorizationPage}>Vehicle Authorization</button>
+      <button onClick={adminPanel}>Driver Registration</button>
+      <button onClick={navigateToRegister}>Employee Registration</button>
       <button onClick={routeCreationPage}>Create New Route</button>
+      <button onClick={vehicleAuthorizationPage}>Vehicle Authorization</button>
+      <button onClick={navigateToSuggestionsComplaints}>Suggestions or Complaints</button>
     </div>
   );
 };
